@@ -42,15 +42,26 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
 
     // This creates and positions a free camera (non-mesh)
     const camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
-
     // This targets the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
-
     // add controller to camera
     camera.attachControl(canvas, true);
 
+    // Universal camera
+    const camera2 = new BABYLON.UniversalCamera('uni-cam', new BABYLON.Vector3(0, 0, -5), scene);
+
+    // Follow camera
+    const camera3 = new BABYLON.FollowCamera('follow-cam', new BABYLON.Vector3(0, 10, -20), scene);
+    camera3.radius = 3;
+
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
+    const light = new BABYLON.HemisphericLight('hemi-light', new BABYLON.Vector3(0, 1, 0), scene);
+
+    // Point light
+    const light2 = new BABYLON.PointLight('point-light', new BABYLON.Vector3(0, 5, 0), scene);
+
+    // Directional Light
+    const light3 = new BABYLON.DirectionalLight('directional-light', new BABYLON.Vector3(5, -1, 0), scene);
 
     // create a box
     const box = BABYLON.MeshBuilder.CreateBox('box', {
@@ -58,6 +69,9 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
     }, scene);
     box.rotation.x = 5;
     box.rotation.y = 3;
+
+    // make camera3 follow the box
+    camera3.lockedTarget = box;
 
     // create a sphere
     const sphere = BABYLON.MeshBuilder.CreateSphere('sphere', {
