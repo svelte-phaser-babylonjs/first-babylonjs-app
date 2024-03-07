@@ -41,7 +41,7 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
     const scene = new BABYLON.Scene(engine);
 
     // This creates and positions a free camera (non-mesh)
-    var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+    const camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
 
     // This targets the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
@@ -49,13 +49,15 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
     // add controller to camera
     camera.attachControl(canvas, true);
 
-    // create a light
+    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
     const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
 
     // create a box
     const box = BABYLON.MeshBuilder.CreateBox('box', {
         size: 1,
     }, scene);
+    box.rotation.x = 5;
+    box.rotation.y = 3;
 
     // create a sphere
     const sphere = BABYLON.MeshBuilder.CreateSphere('sphere', {
@@ -63,6 +65,7 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
         diameter: 2,
     }, scene);
     sphere.position = new BABYLON.Vector3(3, 0, 0);
+    sphere.scaling = new BABYLON.Vector3(1, 0.5, 1); // sphere is now squished
 
     // create a plane
     const plane = BABYLON.MeshBuilder.CreatePlane('plane', {}, scene);
