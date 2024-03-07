@@ -53,7 +53,18 @@ const createLight = function (scene: BABYLON.Scene) {
 }
 
 const createSun = function (scene: BABYLON.Scene) {
+    const sunMat = new BABYLON.StandardMaterial('sun-mat', scene);
+    // emissive is as if the color has light
+    sunMat.emissiveTexture = new BABYLON.Texture('assets/images/sun.jpg', scene);
+    sunMat.diffuseColor = BABYLON.Color3.Black();
+    sunMat.specularColor = BABYLON.Color3.Black();
+
     const sun = BABYLON.MeshBuilder.CreateSphere('sun', { segments: 16, diameter: 4 }, scene);
+    sun.material = sunMat;
+
+    // add a light source to the sun itself
+    const sunLight = new BABYLON.PointLight('sun-light', BABYLON.Vector3.Zero(), scene);
+    sunLight.intensity = 2;
 
     return sun;
 }
