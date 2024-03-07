@@ -34,11 +34,24 @@ export class SolarSystem {
 }
 
 const createCamera = function (scene: BABYLON.Scene) {
-    const camera = new BABYLON.FreeCamera('camera', BABYLON.Vector3.Zero(), scene);
+    const camera = new BABYLON.ArcRotateCamera('camera', 0, 0, 15, BABYLON.Vector3.Zero(), scene);
+
+    // limit camera movement
+    camera.lowerRadiusLimit = 6;
+    camera.upperRadiusLimit = 20;
+
+    return camera;
 }
 
 const createLight = function (scene: BABYLON.Scene) {
     const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
+    return light;
+}
+
+const createSun = function (scene: BABYLON.Scene) {
+    const sun = BABYLON.MeshBuilder.CreateSphere('sun', { segments: 16, diameter: 4 }, scene);
+
+    return sun;
 }
 
 
@@ -48,9 +61,13 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
     // This creates a basic Babylon Scene object (non-mesh)
     const scene = new BABYLON.Scene(engine);
 
-    createCamera(scene);
+    const camera = createCamera(scene);
+    camera.attachControl(canvas);
 
     createLight(scene);
+
+    // create the sun
+    createSun(scene);
 
     return scene;
 };

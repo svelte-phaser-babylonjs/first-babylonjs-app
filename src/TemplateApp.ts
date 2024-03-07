@@ -35,10 +35,12 @@ export class TemplateApp {
 
 const createCamera = function (scene: BABYLON.Scene) {
     const camera = new BABYLON.FreeCamera('camera', BABYLON.Vector3.Zero(), scene);
+    return camera;
 }
 
 const createLight = function (scene: BABYLON.Scene) {
     const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
+    return light;
 }
 
 
