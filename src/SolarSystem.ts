@@ -69,31 +69,33 @@ const createSun = function (scene: BABYLON.Scene) {
     return sun;
 }
 
-const createPlanet = function (scene: BABYLON.Scene) {
+const createPlanets = function (scene: BABYLON.Scene) {
     // planet material
     const planetMat = new BABYLON.StandardMaterial('planet-mat', scene);
     planetMat.diffuseTexture = new BABYLON.Texture('assets/images/sand.png', scene);
     planetMat.specularColor = BABYLON.Color3.Black();
 
-    const planet = BABYLON.MeshBuilder.CreateSphere('planet', { segments: 16, diameter: 1 }, scene);
-    planet.material = planetMat;
+    const speeds = [0.01, -0.01, 0.02];
 
-    planet.position.x = 4;
+    for (let i = 0; i < 3; ++i) {
+        const planet = BABYLON.MeshBuilder.CreateSphere(`planet-${i}`, { segments: 16, diameter: 1 }, scene);
+        planet.material = planetMat;
 
-    const orbit = {
-        radius: planet.position.x,
-        speed: 0.01,
-        angle: 0,
-    };
+        planet.position.x = (2 * i) + 4;
 
-    // animations
-    scene.registerBeforeRender(() => {
-        planet.position.x = orbit.radius * Math.sin(orbit.angle);
-        planet.position.z = orbit.radius * Math.cos(orbit.angle);
-        orbit.angle += orbit.speed;
-    });
+        const orbit = {
+            radius: planet.position.x,
+            speed: speeds[i],
+            angle: 0,
+        };
 
-    return planet;
+        // animations
+        scene.registerBeforeRender(() => {
+            planet.position.x = orbit.radius * Math.sin(orbit.angle);
+            planet.position.z = orbit.radius * Math.cos(orbit.angle);
+            orbit.angle += orbit.speed;
+        });
+    }
 }
 
 const createSkyBox = function (scene: BABYLON.Scene) {
@@ -132,7 +134,7 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
     createSun(scene);
 
     // create first planet
-    createPlanet(scene);
+    createPlanets(scene);
 
     // create skybox
     createSkyBox(scene);
