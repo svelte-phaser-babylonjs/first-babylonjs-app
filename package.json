@@ -11,12 +11,11 @@
     "src/@types"
   ],
   "devDependencies": {
-    "@babylonjs/core": "^6.45.1",
-    "@babylonjs/loaders": "^6.45.1",
     "typescript": "^5.3.3",
     "vite": "^5.0.11"
   },
   "dependencies": {
-    "babylonjs": "^6.45.1"
+    "babylonjs": "^6.46.0",
+    "babylonjs-loaders": "^6.46.0"
   }
 }

@@ -1,4 +1,7 @@
 import * as BABYLON from 'babylonjs'
+import 'babylonjs-loaders';
+
+
 export class SolarSystem {
     engine: BABYLON.Engine;
     scene: BABYLON.Scene;
@@ -119,6 +122,15 @@ const createSkyBox = function (scene: BABYLON.Scene) {
     return skybox;
 }
 
+const createShip = function (scene: BABYLON.Scene) {
+    BABYLON.SceneLoader.ImportMesh('', 'assets/models/', 'spaceCraft1.obj', scene, (meshes) => {
+        meshes.forEach(mesh => {
+            mesh.position = new BABYLON.Vector3(0, -5, 10);
+            mesh.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2);
+        })
+    });
+}
+
 const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
     // This creates a basic Babylon Scene object (non-mesh)
     const scene = new BABYLON.Scene(engine);
@@ -138,6 +150,9 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
 
     // create skybox
     createSkyBox(scene);
+
+    // create the ship
+    createShip(scene);
 
     return scene;
 };
