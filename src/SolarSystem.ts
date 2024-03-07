@@ -81,6 +81,7 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
     const camera = createCamera(scene);
     camera.attachControl(canvas);
 
+    // create and config the light
     createLight(scene);
 
     // create the sun
