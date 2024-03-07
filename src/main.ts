@@ -1,4 +1,5 @@
-import { AppOne as App } from './AppOne';
+// import { AppOne as App } from './AppOne';
+import { SolarSystem as App } from './SolarSystem';
 
 console.log(`main.ts starting ${App.name}`);
 window.addEventListener('DOMContentLoaded', () => {
