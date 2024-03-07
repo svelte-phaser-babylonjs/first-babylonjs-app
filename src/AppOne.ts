@@ -65,7 +65,7 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
         diameter: 2,
     }, scene);
     sphere.position = new BABYLON.Vector3(3, 0, 0);
-    sphere.scaling = new BABYLON.Vector3(1, 0.5, 1); // sphere is now squished
+    sphere.scaling = new BABYLON.Vector3(1, 0.7, 1); // sphere is now squished
 
     // create a plane
     const plane = BABYLON.MeshBuilder.CreatePlane('plane', {}, scene);
@@ -81,6 +81,18 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
     const lines = BABYLON.MeshBuilder.CreateLines('lines', {
         points
     }, scene);
+
+    // Materials
+    const material = new BABYLON.StandardMaterial('material', scene);
+    material.diffuseColor = new BABYLON.Color3(1, 0, 1);
+    // material.emissiveColor = new BABYLON.Color3(0, 1, 0);
+
+    const material2 = new BABYLON.StandardMaterial('material2', scene);
+    material2.diffuseTexture = new BABYLON.Texture('./assets/images/dark_rock.png', scene);
+
+    // using material
+    box.material = material;
+    sphere.material = material2;
 
     return scene;
 };
