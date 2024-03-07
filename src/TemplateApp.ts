@@ -45,8 +45,6 @@ const createLight = function (scene: BABYLON.Scene) {
 
 
 const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
-    // this is the default code from the playground:
-
     // This creates a basic Babylon Scene object (non-mesh)
     const scene = new BABYLON.Scene(engine);
 

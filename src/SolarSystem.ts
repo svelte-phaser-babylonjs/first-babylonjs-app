@@ -45,6 +45,10 @@ const createCamera = function (scene: BABYLON.Scene) {
 
 const createLight = function (scene: BABYLON.Scene) {
     const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
+
+    light.intensity = 0.5;
+    light.groundColor = new BABYLON.Color3(0, 0, 1);
+
     return light;
 }
 
@@ -54,12 +58,25 @@ const createSun = function (scene: BABYLON.Scene) {
     return sun;
 }
 
+const createPlaner = function (scene: BABYLON.Scene) {
+    // planet material
+    const planetMat = new BABYLON.StandardMaterial('planet-mat', scene);
+    planetMat.diffuseTexture = new BABYLON.Texture('assets/images/sand.png', scene);
+    planetMat.specularColor = BABYLON.Color3.Black();
+
+    const planet = BABYLON.MeshBuilder.CreateSphere('planet', { segments: 16, diameter: 1 }, scene);
+    planet.material = planetMat;
+
+    planet.position.x = 4;
+
+    return planet;
+}
+
 
 const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
-    // this is the default code from the playground:
-
     // This creates a basic Babylon Scene object (non-mesh)
     const scene = new BABYLON.Scene(engine);
+    scene.clearColor = BABYLON.Color4.FromColor3(BABYLON.Color3.Black());
 
     const camera = createCamera(scene);
     camera.attachControl(canvas);
@@ -68,6 +85,9 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
 
     // create the sun
     createSun(scene);
+
+    // create first planet
+    createPlaner(scene);
 
     return scene;
 };
