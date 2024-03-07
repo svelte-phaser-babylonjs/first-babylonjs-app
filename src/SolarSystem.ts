@@ -80,6 +80,19 @@ const createPlanet = function (scene: BABYLON.Scene) {
 
     planet.position.x = 4;
 
+    const orbit = {
+        radius: planet.position.x,
+        speed: 0.01,
+        angle: 0,
+    };
+
+    // animations
+    scene.registerBeforeRender(() => {
+        planet.position.x = orbit.radius * Math.sin(orbit.angle);
+        planet.position.z = orbit.radius * Math.cos(orbit.angle);
+        orbit.angle += orbit.speed;
+    });
+
     return planet;
 }
 
