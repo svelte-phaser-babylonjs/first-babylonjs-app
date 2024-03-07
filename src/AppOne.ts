@@ -40,8 +40,12 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
     // This creates a basic Babylon Scene object (non-mesh)
     const scene = new BABYLON.Scene(engine);
 
-    // create a camera
-    const camera = new BABYLON.FreeCamera('camera', new BABYLON.Vector3(0, 0, -10), scene);
+    // This creates and positions a free camera (non-mesh)
+    var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+
+    // This targets the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+
     // add controller to camera
     camera.attachControl(canvas, true);
 
@@ -56,9 +60,9 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
     // create a sphere
     const sphere = BABYLON.MeshBuilder.CreateSphere('sphere', {
         segments: 32,
-        diameter: 1,
+        diameter: 2,
     }, scene);
-    sphere.position = new BABYLON.Vector3(2, 0, 0);
+    sphere.position = new BABYLON.Vector3(3, 0, 0);
 
     // create a plane
     const plane = BABYLON.MeshBuilder.CreatePlane('plane', {}, scene);
@@ -67,9 +71,9 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
 
     // create a line
     const points = [
-        new BABYLON.Vector3(3, 0, 0),
-        new BABYLON.Vector3(3, 1, 1),
-        new BABYLON.Vector3(3, 1, 0),
+        new BABYLON.Vector3(1, 0, 0),
+        new BABYLON.Vector3(1, 1, 1),
+        new BABYLON.Vector3(1, 1, 0),
     ];
     const lines = BABYLON.MeshBuilder.CreateLines('lines', {
         points
