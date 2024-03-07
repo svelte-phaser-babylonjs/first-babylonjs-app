@@ -69,7 +69,7 @@ const createSun = function (scene: BABYLON.Scene) {
     return sun;
 }
 
-const createPlaner = function (scene: BABYLON.Scene) {
+const createPlanet = function (scene: BABYLON.Scene) {
     // planet material
     const planetMat = new BABYLON.StandardMaterial('planet-mat', scene);
     planetMat.diffuseTexture = new BABYLON.Texture('assets/images/sand.png', scene);
@@ -83,6 +83,26 @@ const createPlaner = function (scene: BABYLON.Scene) {
     return planet;
 }
 
+const createSkyBox = function (scene: BABYLON.Scene) {
+    const skybox = BABYLON.MeshBuilder.CreateBox('skybox', { size: 1000 }, scene);
+
+    const skyboxMat = new BABYLON.StandardMaterial('skybox-mat', scene);
+    skyboxMat.backFaceCulling = false;
+    // remove reflection in skybox
+    skyboxMat.specularColor = BABYLON.Color3.Black();
+    skyboxMat.diffuseColor = BABYLON.Color3.Black();
+
+    // texture the 6 side of the box
+    skyboxMat.reflectionTexture = new BABYLON.CubeTexture('assets/images/skybox/skybox', scene);
+    skyboxMat.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+
+    // move the skybox with camera
+    skybox.infiniteDistance = true;
+
+    skybox.material = skyboxMat;
+
+    return skybox;
+}
 
 const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
     // This creates a basic Babylon Scene object (non-mesh)
@@ -99,7 +119,10 @@ const createScene = function (engine: BABYLON.Engine, canvas: HTMLCanvasElement)
     createSun(scene);
 
     // create first planet
-    createPlaner(scene);
+    createPlanet(scene);
+
+    // create skybox
+    createSkyBox(scene);
 
     return scene;
 };
